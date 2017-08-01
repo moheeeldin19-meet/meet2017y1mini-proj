@@ -37,6 +37,7 @@ UP_ARROW="Up"
 LEFT_ARROW="Left"
 DOWN_ARROW="Down"
 RIGHT_ARROW="Right"
+TIME_STEP=400
 SPACEBAR="spacebar"
 
 UP=0
@@ -52,24 +53,21 @@ LEFT_EDGE=-400
 def up():
     global direction
     direction=UP
-    move_snake() #<----REMEMBER ME LATERR!!!!!!!!
+     #<----REMEMBER ME LATERR!!!!!!!!
     print("you pressed the up key")
 def down():
     global direction
     direction=DOWN
-    move_snake()
     print("you pressed the down key")
 
 def left():
     global direction
     direction = LEFT
-    move_snake()
     print("you pressed the left key")
 
 def right():
     global direction
     direction=RIGHT
-    move_snake()
     print("you pressed the right key")
 turtle.onkeypress(up,UP_ARROW)
 turtle.onkeypress(down,DOWN_ARROW)
@@ -97,10 +95,17 @@ def move_snake():
     pos_list.append(my_pos)
     new_stamp=snake.stamp()
     stamp_list.append(new_stamp)
-    #########
-    ########
-    ######
-    old_stamp=stamp_list.pop(0)
+    global food_stamps,food_pos
+    if snake.pos() in food_pos:
+        food_ind=food_pos.index(snake.pos())
+        food.clearstamp(food_stamps[food_ind])
+        food_pos.pop(food_ind)
+        food_stamps.pop(food_ind)
+        print("you have eaten the food")
+        make_food()
+###HINT: this if statment may be useful for part 8
+    old_stamp =stamp_list.pop(0)
+    
     snake.clearstamp(old_stamp)
     pos_list.pop(0)
     new_pos=snake.pos()
@@ -118,4 +123,33 @@ def move_snake():
     if new_y_pos>=UP_EDGE:
         print("you hit the up edge! GAME OVER!")
         quit()
-    
+    turtle.ontimer(move_snake,TIME_STEP)
+move_snake()
+turtle.register_shape("trash.gif")
+food=turtle.clone()
+food.shape("trash.gif")
+
+food_pos=[]
+food_stamps=[]
+food.hideturtle()
+##def food_places(start,end):
+##    food.goto(start,end)
+##    aliens=food.stamp()
+##    food_stamps.append(aliens)
+##food_places(100,100)
+##food_places(-100,100)
+##food_places(-100,-100)
+##food_places(100,-100)
+
+def make_food():
+    min_x=-int(SIZE_X/2/SQUARE_SIZE)+1
+    max_x=int(SIZE_X/2/SQUARE_SIZE)-1
+    min_y=-int(SIZE_Y/2/SQUARE_SIZE)-1
+    max_y=int(SIZE_Y/2/SQUARE_SIZE)+1
+    food_x=random.randint(min_x,max_x)*SQUARE_SIZE
+    food_y=random.randint(min_y,max_y)*SQUARE_SIZE
+    food.goto(food_x,food_y)
+    food_pos.append(food.pos())
+    aliens=food.stamp()
+    food_stamps.append(aliens)
+make_food()
