@@ -37,7 +37,7 @@ UP_ARROW="Up"
 LEFT_ARROW="Left"
 DOWN_ARROW="Down"
 RIGHT_ARROW="Right"
-TIME_STEP=400
+TIME_STEP=100
 SPACEBAR="spacebar"
 
 UP=0
@@ -95,7 +95,7 @@ def move_snake():
     pos_list.append(my_pos)
     new_stamp=snake.stamp()
     stamp_list.append(new_stamp)
-    global food_stamps,food_pos
+    global food_stamps,food_pos,START_LENGTH
     if snake.pos() in food_pos:
         food_ind=food_pos.index(snake.pos())
         food.clearstamp(food_stamps[food_ind])
@@ -103,7 +103,8 @@ def move_snake():
         food_stamps.pop(food_ind)
         print("you have eaten the food")
         make_food()
-###HINT: this if statment may be useful for part 8
+        START_LENGTH=START_LENGTH+1
+        #HINT: this if statment may be useful for part 8
     old_stamp =stamp_list.pop(0)
     
     snake.clearstamp(old_stamp)
@@ -122,6 +123,9 @@ def move_snake():
         quit()
     if new_y_pos>=UP_EDGE:
         print("you hit the up edge! GAME OVER!")
+        quit()
+    if pos_list[-1]in pos_list[0:-1]:
+        print("you ate yourself !!GAME OVER!!")
         quit()
     turtle.ontimer(move_snake,TIME_STEP)
 move_snake()
@@ -153,3 +157,4 @@ def make_food():
     aliens=food.stamp()
     food_stamps.append(aliens)
 make_food()
+
