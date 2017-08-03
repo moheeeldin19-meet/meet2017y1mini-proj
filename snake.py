@@ -1,7 +1,11 @@
 import turtle
 import random
-
+turtle.bgcolor("gray")
+#makes turtle moves more smoothly
 turtle.tracer(1,0)
+#making a clone for the edges
+SIZE_X=800
+SIZE_Y=500
 
 moo=turtle.clone()
 moo.penup()
@@ -11,10 +15,9 @@ moo.goto(400,250)
 moo.goto(-400,250)
 moo.goto(-400,-250)
 moo.goto(400,-250)
+#the window size
 
-SIZE_X=800
-SIZE_Y=500
-turtle.setup(SIZE_X, SIZE_Y)
+turtle.setup(SIZE_X+50, SIZE_Y+50)
 
 turtle.penup()
 
@@ -26,11 +29,14 @@ stamp_list = []
 food_pos =[]
 food_stamps =[]
 
-
+#making the snake 
 snake =turtle.clone()
 snake.shape("square")
 turtle.hideturtle()
+snake.color("blue","red")
 
+
+#to start the game in the required length
 for i in range(START_LENGTH):
     x_pos=snake.pos()[0]
     y_pos=snake.pos()[1]
@@ -42,7 +48,7 @@ for i in range(START_LENGTH):
     pos_list.append(snake.pos())
     pizza=snake.stamp()
     stamp_list.append(pizza)
-
+#assigning the buttons
 UP_ARROW="Up"
 LEFT_ARROW="Left"
 DOWN_ARROW="Down"
@@ -62,22 +68,26 @@ RIGHT_EDGE=400
 LEFT_EDGE=-400
 def up():
     global direction
-    direction=UP
+    if direction!=DOWN: 
+        direction=UP
      #<----REMEMBER ME LATERR!!!!!!!!
     print("you pressed the up key")
 def down():
     global direction
-    direction=DOWN
+    if direction!=UP:
+        direction=DOWN
     print("you pressed the down key")
 
 def left():
     global direction
-    direction = LEFT
+    if direction !=RIGHT:
+        direction=LEFT
     print("you pressed the left key")
 
 def right():
     global direction
-    direction=RIGHT
+    if direction!=LEFT:
+        direction=RIGHT
     print("you pressed the right key")
 turtle.onkeypress(up,UP_ARROW)
 turtle.onkeypress(down,DOWN_ARROW)
@@ -86,6 +96,7 @@ turtle.onkeypress(left,LEFT_ARROW)
 turtle.listen()
 c=0
 turtle.goto(-378,230)
+#to make the snake move in all directions without coming
 def move_snake():
     my_pos = snake.pos()
     x_pos=my_pos[0]
@@ -114,8 +125,9 @@ def move_snake():
         print("you have eaten the food")
         make_food()
         c=c+1
-        
+        turtle.clear()
         turtle.write(c)
+        print(c)
     
         
     else:
@@ -150,14 +162,7 @@ food.shape("trash.gif")
 food_pos=[]
 food_stamps=[]
 food.hideturtle()
-##def food_places(start,end):
-##    food.goto(start,end)
-##    aliens=food.stamp()
-##    food_stamps.append(aliens)
-##food_places(100,100)
-##food_places(-100,100)
-##food_places(-100,-100)
-##food_places(100,-100)
+
 
 def make_food():
     min_x=-int(SIZE_X/2.5/SQUARE_SIZE)+1
@@ -170,5 +175,8 @@ def make_food():
     food_pos.append(food.pos())
     aliens=food.stamp()
     food_stamps.append(aliens)
+    food_pos[0:-1]!=pos_list[0:]
+    
 make_food()
+
 
