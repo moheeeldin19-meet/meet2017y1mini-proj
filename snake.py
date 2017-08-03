@@ -1,6 +1,16 @@
 import turtle
 import random
+
 turtle.tracer(1,0)
+
+moo=turtle.clone()
+moo.penup()
+moo.goto(400,-250)
+moo.pendown()
+moo.goto(400,250)
+moo.goto(-400,250)
+moo.goto(-400,-250)
+moo.goto(400,-250)
 
 SIZE_X=800
 SIZE_Y=500
@@ -9,7 +19,7 @@ turtle.setup(SIZE_X, SIZE_Y)
 turtle.penup()
 
 SQUARE_SIZE=20
-START_LENGTH=9
+START_LENGTH=2
 
 pos_list=[]
 stamp_list = []
@@ -37,7 +47,7 @@ UP_ARROW="Up"
 LEFT_ARROW="Left"
 DOWN_ARROW="Down"
 RIGHT_ARROW="Right"
-TIME_STEP=100
+TIME_STEP=200
 SPACEBAR="spacebar"
 
 UP=0
@@ -46,8 +56,8 @@ DOWN=1
 RIGHT=3
 
 direction =UP
-UP_EDGE=250
-DOWN_EDGE=-250
+UP_EDGE=240
+DOWN_EDGE=-240
 RIGHT_EDGE=400
 LEFT_EDGE=-400
 def up():
@@ -74,12 +84,12 @@ turtle.onkeypress(down,DOWN_ARROW)
 turtle.onkeypress(right,RIGHT_ARROW)
 turtle.onkeypress(left,LEFT_ARROW)
 turtle.listen()
-
+c=0
+turtle.goto(-378,230)
 def move_snake():
     my_pos = snake.pos()
     x_pos=my_pos[0]
     y_pos=my_pos[1]
-
     if direction ==RIGHT:
         snake.goto(x_pos+SQUARE_SIZE,y_pos)
         print("you moved right")
@@ -95,7 +105,7 @@ def move_snake():
     pos_list.append(my_pos)
     new_stamp=snake.stamp()
     stamp_list.append(new_stamp)
-    global food_stamps,food_pos,START_LENGTH
+    global food_stamps,food_pos,c
     if snake.pos() in food_pos:
         food_ind=food_pos.index(snake.pos())
         food.clearstamp(food_stamps[food_ind])
@@ -103,12 +113,16 @@ def move_snake():
         food_stamps.pop(food_ind)
         print("you have eaten the food")
         make_food()
-        START_LENGTH=START_LENGTH+1
-        #HINT: this if statment may be useful for part 8
-    old_stamp =stamp_list.pop(0)
+        c=c+1
+        
+        turtle.write(c)
     
-    snake.clearstamp(old_stamp)
-    pos_list.pop(0)
+        
+    else:
+            #HINT: this if statment may be useful for part 8
+        old_stamp =stamp_list.pop(0)
+        snake.clearstamp(old_stamp)
+        pos_list.pop(0)
     new_pos=snake.pos()
     new_x_pos=new_pos[0]
     new_y_pos=new_pos[1]
@@ -146,10 +160,10 @@ food.hideturtle()
 ##food_places(100,-100)
 
 def make_food():
-    min_x=-int(SIZE_X/2/SQUARE_SIZE)+1
-    max_x=int(SIZE_X/2/SQUARE_SIZE)-1
-    min_y=-int(SIZE_Y/2/SQUARE_SIZE)-1
-    max_y=int(SIZE_Y/2/SQUARE_SIZE)+1
+    min_x=-int(SIZE_X/2.5/SQUARE_SIZE)+1
+    max_x=int(SIZE_X/2.5/SQUARE_SIZE)-1
+    min_y=-int(SIZE_Y/2.5/SQUARE_SIZE)-1
+    max_y=int(SIZE_Y/2.5/SQUARE_SIZE)+1
     food_x=random.randint(min_x,max_x)*SQUARE_SIZE
     food_y=random.randint(min_y,max_y)*SQUARE_SIZE
     food.goto(food_x,food_y)
