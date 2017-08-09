@@ -1,6 +1,7 @@
 import turtle
 import random
 turtle.bgcolor("gray")
+colors=["blue","red","green","magenta","yellow","orange","purple","cyan"]
 #makes turtle moves more smoothly
 turtle.tracer(1,0)
 #making a clone for the edges
@@ -33,7 +34,7 @@ food_stamps =[]
 snake =turtle.clone()
 snake.shape("square")
 turtle.hideturtle()
-snake.color("blue","red")
+
 
 
 #to start the game in the required length
@@ -55,7 +56,8 @@ DOWN_ARROW="Down"
 RIGHT_ARROW="Right"
 TIME_STEP=200
 SPACEBAR="spacebar"
-
+color=random.choice(colors)
+snake.color(color,color)
 UP=0
 LEFT=2
 DOWN=1
@@ -123,6 +125,8 @@ def move_snake():
         food_pos.pop(food_ind)
         food_stamps.pop(food_ind)
         print("you have eaten the food")
+        color=random.choice(colors)
+        snake.color("black",color)
         make_food()
         c=c+1
         turtle.clear()
@@ -158,7 +162,7 @@ move_snake()
 turtle.register_shape("trash.gif")
 food=turtle.clone()
 food.shape("trash.gif")
-
+food.color("purple")
 food_pos=[]
 food_stamps=[]
 food.hideturtle()

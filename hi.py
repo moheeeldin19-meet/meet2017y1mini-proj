@@ -1,6 +1,6 @@
 import turtle, random
 
-colors  = ["red","green","blue","orange","purple","pink","yellow","cyan","magenta", "black", "gray"] # Make a list of colors to picvk from
+colors  = ["red","green","blue","orange","purple","pink","yellow","cyan","magenta", "black", "gray","gold",] # Make a list of colors to picvk from
 
 turtle.width(10) #What does this line do?
 
