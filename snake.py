@@ -1,8 +1,7 @@
 import turtle
 import random
 turtle.bgcolor("gray")
-colors=["blue","red","green","magenta","yellow","orange","purple","cyan"]
-#makes turtle moves more smoothly
+colors=["blue","red","yellow","cyan","orange","green","gray","pink","purple","white","GOLD","silver","firebrick","lime","palegreen","darksalmon","mediumspringgreen","crimson","darkslategray","goldenrod","seagreen","maroon","hotpink"]#makes turtle moves more smoothly
 turtle.tracer(1,0)
 #making a clone for the edges
 SIZE_X=800
