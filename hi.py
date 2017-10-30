@@ -11,5 +11,5 @@ for count in range(1000):
   turtle.right(150)
   turtle.color(color) # Why is color spelt like this?
   length = length + 5
-  
-  
+
+
